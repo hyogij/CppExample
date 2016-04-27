@@ -17,18 +17,22 @@ int main() {
 	char str1[] = "Hello There";
 	char str2[] = "How are you?";
 	char str3[] = "my nAMe is john.";
+	char str4[] = "my nAMe is j'ohn.";
 
 	reverse(str1);
 	reverse(str2);
 	reverse(str3);
+	reverse(str4);
 }
 
+char *output;
 void reverse(char* str) {
-	printf("1 :%s\n", str);
+	printf("Input :%s\n", str);
 
 	int len = strlen(str);
 	int left = 0, right = 0;
 	for (; right < len; right++) {
+		// Break words with these characters
 		if (str[right] == ' ' || str[right] == '.') {
 			reverse_word(str, left, right - 1);
 			left = right + 1;
@@ -36,7 +40,8 @@ void reverse(char* str) {
 	}
 	reverse_word(str, left, right - 1);
 
-	printf("2 :%s\n", str);
+	output = str;
+	printf("Output :%s\n", output);
 }
 
 void reverse_word(char *x, int begin, int end) {
@@ -50,7 +55,7 @@ void reverse_word(char *x, int begin, int end) {
 	x[first] = toUppercase(x[first]);
 }
 
-// 65 : A, 90 : Z, 97 : a, 122 : z
+// Ascii values : 65 A, 90 Z, 97 a, 122 z
 char toLowercase(char c) {
 	if (c >= 65 && c <= 90)
 		return c + 32;
