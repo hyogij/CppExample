@@ -9,11 +9,17 @@
  ==========================================================
  */
 void kingKohima(int N);
+void kingKohimaDp(int N);
 int recur(char c, int num, int N);
 
 int main() {
 	kingKohima(3);
 	kingKohima(4);
+	kingKohima(5);
+
+	kingKohimaDp(3);
+	kingKohimaDp(4);
+	kingKohimaDp(5);
 }
 
 void kingKohima(int N) {
@@ -26,6 +32,26 @@ void kingKohima(int N) {
 	//Since same number exists on other side also
 	int total = (x + y) * (x + y);
 
+	printf("kingKohima : %d, %d\n", N, total);
+}
+
+void kingKohimaDp(int N) {
+	int * countX = (int*) malloc(sizeof(int) * (N + 1));
+	int * countY = (int*) malloc(sizeof(int) * (N + 1));
+
+	countX[0] = 0;
+	countY[0] = 0;
+	countX[1] = 1;
+	countY[1] = 1;
+	countX[2] = 1;
+	countY[2] = 2;
+
+	for (int i = 3; i <= N; i++) {
+		countX[i] = countY[i - 1];
+		countY[i] = countX[i - 1] + countY[i - 1];
+	}
+
+	int total = (countX[N] + countY[N]) * (countX[N] + countY[N]);
 	printf("kingKohima : %d, %d\n", N, total);
 }
 
